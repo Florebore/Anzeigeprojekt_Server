@@ -23,7 +23,7 @@ import javax.websocket.server.ServerEndpoint;
  * @author Florian
  */
 @ServerEndpoint("/endpoint")
-public class WebsocketEndpoint {
+public class JSONWebsocketEndpointServer {
     
     private Session session;
     
@@ -39,7 +39,7 @@ public class WebsocketEndpoint {
         System.out.println("----"+message);
      try {   this.session.getBasicRemote().sendText("Echo"+message);}
      catch (IOException ex) {
-         Logger.getLogger(WebsocketEndpoint.class.getName()).log(Level.SEVERE, null,ex);}
+         Logger.getLogger(JSONWebsocketEndpointServer.class.getName()).log(Level.SEVERE, null,ex);}
      }
     
    
