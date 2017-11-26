@@ -7,9 +7,11 @@ package com.flopewsserver;
 
 import java.util.logging.Logger;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import javax.websocket.OnClose;
@@ -22,13 +24,11 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Florian
  */
-@ServerEndpoint("/endpoint")
+@ServerEndpoint("/websocket")
 public class JSONWebsocketEndpointServer {
     
     private Session session;
-    
-    //private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
-   
+ 
     @OnOpen
     public void onOpen(Session session) {this.session = session;}
     
@@ -47,19 +47,4 @@ public class JSONWebsocketEndpointServer {
     }
     
     
-   /* @OnClose
-    public void OnClose(Session session) {sessions.remove(session);}
-    
-   
-    
-    public String onMessage(ByteBuffer bytebuffer) {
-        sessions.forEach((Session session) -> {
-            try {session.getBasicRemote().sendBinary(bytebuffer);}
-            catch (IOException ex) {
-                Logger.getLogger(WebsocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        return null;
-    }
-    
-}*/
+  
