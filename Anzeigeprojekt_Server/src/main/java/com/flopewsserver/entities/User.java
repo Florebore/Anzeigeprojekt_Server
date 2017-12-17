@@ -134,7 +134,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.flopewsserver.entities.User[ userID=" + userID + " ]";
+        return "com.flopewsserver.entities.User[ userID=" + userID + " "+ username+" "+ ident+"  ]";
     }
     
 }
