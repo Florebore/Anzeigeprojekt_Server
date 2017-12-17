@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -25,21 +26,23 @@ import javax.websocket.server.ServerEndpoint;
  * @author Florian
  */
 @ServerEndpoint("/websocket")
-public class JSONWebsocketEndpointServer {
+public class WebsocketEndpointServer {
     
-    private Session session;
+    private static final Set<Session> usersessions =  Collections.newSetFromMap(new ConcurrentHashMap<Session,Boolean>());
  
     @OnOpen
-    public void onOpen(Session session) {this.session = session;}
+    public void onOpen(Session usersession) {usersessions.add(usersession);}
     
     @OnMessage
     
-    public void OnMessage(String message){
+    public void OnMessage(String message, Session usersession) throws IOException{
         
         System.out.println("----"+message);
-     try {   this.session.getBasicRemote().sendText("Echo"+message);}
+     try {   for (Session session : usersessions){session.getBasicRemote().sendText("Echo"+message);}
+     
+     }
      catch (IOException ex) {
-         Logger.getLogger(JSONWebsocketEndpointServer.class.getName()).log(Level.SEVERE, null,ex);}
+         Logger.getLogger(WebsocketEndpointServer.class.getName()).log(Level.SEVERE, null,ex);}
      }
     
    
