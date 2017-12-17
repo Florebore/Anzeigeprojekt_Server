@@ -5,9 +5,11 @@
  */
 
 import com.flopewsserver.entities.User;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -42,6 +44,13 @@ public class CRUD {
    EntityManager em = emf.createEntityManager();
    User a = em.find(User.class, 1);
    String pw  = a.getIdent();
+   Query q =  em.createNamedQuery("User.findAll");
+   List l =  q.getResultList();
+   System.out.println(l);
+   Query q1 = em.createNamedQuery("User.findByUsername");
+   q1.setParameter("username","f.boettinger");
+   List l1 =  q1.getResultList();
+   System.out.println(l1);
    
    
    }

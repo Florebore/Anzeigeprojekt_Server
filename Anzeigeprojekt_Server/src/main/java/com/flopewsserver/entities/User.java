@@ -8,12 +8,15 @@ package com.flopewsserver.entities;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,6 +36,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByIdent", query = "SELECT u FROM User u WHERE u.ident = :ident")
     , @NamedQuery(name = "User.findByRolle", query = "SELECT u FROM User u WHERE u.rolle = :rolle")
     , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
+
+//SqlResultsetmapping makes it possible to convert ResultSets to Entities or Pojos https://stackoverflow.com/questions/13012584/jpa-how-to-convert-a-native-query-result-set-to-pojo-class-collection
+
+@SqlResultSetMapping(name="UserResult", classes = {
+    @ConstructorResult(targetClass = User.class, 
+    columns = {@ColumnResult(name="name"), @ColumnResult(name="age")})
+})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,6 +66,8 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "Username")
     private String username;
+    
+
 
     public User() {
     }
