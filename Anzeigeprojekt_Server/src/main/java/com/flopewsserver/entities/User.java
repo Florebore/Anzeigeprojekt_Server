@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SqlResultSetMapping;
@@ -37,12 +38,31 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByRolle", query = "SELECT u FROM User u WHERE u.rolle = :rolle")
     , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
 
+
 //SqlResultsetmapping makes it possible to convert ResultSets to Entities or Pojos https://stackoverflow.com/questions/13012584/jpa-how-to-convert-a-native-query-result-set-to-pojo-class-collection
+//https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#sql
+
+
+@NamedNativeQuery(
+    name = "find_person_username_and_ident_dto",
+    query =
+        "SELECT " +
+        "   UserID,"     +
+        "   Username, " +
+        "   Ident "     +
+        "FROM database_anzeige.userdb ",
+    resultSetMapping = "UserResult"
+)
 
 @SqlResultSetMapping(name="UserResult", classes = {
-    @ConstructorResult(targetClass = User.class, 
-    columns = {@ColumnResult(name="name"), @ColumnResult(name="age")})
-})
+@ConstructorResult(targetClass = User.class, 
+  columns = {
+      @ColumnResult(name="userID"),
+      @ColumnResult(name="username"), 
+      @ColumnResult(name="ident")})})
+
+
+
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -70,6 +90,13 @@ public class User implements Serializable {
 
 
     public User() {
+    }
+    
+    public User(Integer userID,String username, String ident) {
+        
+        this.userID = userID;
+        this.username = username;
+        this.ident = ident;
     }
 
     public User(Integer userID) {
