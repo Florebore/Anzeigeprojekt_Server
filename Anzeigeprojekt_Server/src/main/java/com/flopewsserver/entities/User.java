@@ -27,15 +27,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Florian
  */
 @Entity
-@Table(name = "userdb")
+@Table(name = "user")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-    , @NamedQuery(name = "User.findByUserID", query = "SELECT u FROM User u WHERE u.userID = :userID")
+    , @NamedQuery(name = "User.findByID", query = "SELECT u FROM User u WHERE u.userID = :userID")
     , @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname")
     , @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")
-    , @NamedQuery(name = "User.findByIdent", query = "SELECT u FROM User u WHERE u.ident = :ident")
-    , @NamedQuery(name = "User.findByRolle", query = "SELECT u FROM User u WHERE u.rolle = :rolle")
+    , @NamedQuery(name = "User.findBypassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
 
 
@@ -47,19 +46,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     name = "find_person_username_and_ident_dto",
     query =
         "SELECT " +
-        "   UserID,"     +
+        "   id,"     +
         "   Username, " +
-        "   Ident "     +
-        "FROM database_anzeige.userdb ",
+        "   password "     +
+        "FROM database_anzeige.user ",
     resultSetMapping = "UserResult"
 )
 
 @SqlResultSetMapping(name="UserResult", classes = {
 @ConstructorResult(targetClass = User.class, 
   columns = {
-      @ColumnResult(name="userID"),
+      @ColumnResult(name="id"),
       @ColumnResult(name="username"), 
-      @ColumnResult(name="ident")})})
+      @ColumnResult(name="password")})})
 
 
 
@@ -69,7 +68,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "UserID")
+    @Column(name = "id")
     private Integer userID;
     @Size(max = 45)
     @Column(name = "Firstname")
@@ -78,11 +77,8 @@ public class User implements Serializable {
     @Column(name = "Lastname")
     private String lastname;
     @Size(max = 45)
-    @Column(name = "Ident")
-    private String ident;
-    @Size(max = 45)
-    @Column(name = "Rolle")
-    private String rolle;
+    @Column(name = "password")
+    private String password;
     @Size(max = 45)
     @Column(name = "Username")
     private String username;
@@ -96,7 +92,7 @@ public class User implements Serializable {
         
         this.userID = userID;
         this.username = username;
-        this.ident = ident;
+        this.password = password;
     }
 
     public User(Integer userID) {
@@ -128,19 +124,11 @@ public class User implements Serializable {
     }
 
     public String getIdent() {
-        return ident;
+        return password;
     }
 
     public void setIdent(String ident) {
-        this.ident = ident;
-    }
-
-    public String getRolle() {
-        return rolle;
-    }
-
-    public void setRolle(String rolle) {
-        this.rolle = rolle;
+        this.password = ident;
     }
 
     public String getUsername() {
@@ -173,7 +161,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.flopewsserver.entities.User[ userID=" + userID + " "+ username+" "+ ident+"  ]";
+        return "com.flopewsserver.entities.User[ userID=" + userID + " username = "+ username+" ident= "+ password+" Firstname=" + firstname + " Lastname = "+ lastname+"  ]";
     }
     
 }
