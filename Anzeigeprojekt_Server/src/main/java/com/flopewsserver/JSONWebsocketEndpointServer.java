@@ -24,7 +24,7 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Florian
  */
-@ServerEndpoint("/websocket")
+@ServerEndpoint("/socket")
 public class JSONWebsocketEndpointServer {
     
     private Session session;
