@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import com.flopewsserver.IncomingMessagesHandler;
 import com.flopewsserver.entities.User;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -62,6 +63,8 @@ String username = user.getUsername();
 Integer id = user.getUserID();
 System.out.println(id);
 System.out.println(username);
+IncomingMessagesHandler dis = new IncomingMessagesHandler();
+dis.test(user);
 
 
 
