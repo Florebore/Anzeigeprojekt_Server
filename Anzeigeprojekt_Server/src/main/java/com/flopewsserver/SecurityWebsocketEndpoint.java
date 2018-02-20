@@ -27,10 +27,11 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Florian
  */
-@ServerEndpoint("/socket")
-public class JSONWebsocketEndpointServer {
+@ServerEndpoint("/security")
+public class SecurityWebsocketEndpoint {
     
     private Session session;
+    private static final Logger log = Logger.getLogger(SecurityWebsocketEndpoint.class.getName());
  
     @OnOpen
     public void onOpen(Session session) {this.session = session;}
@@ -50,16 +51,16 @@ public class JSONWebsocketEndpointServer {
     
      try {   this.session.getBasicRemote().sendText("Echo"+(dis.test(loginuser)));}
      catch (IOException ex) {
-         Logger.getLogger(JSONWebsocketEndpointServer.class.getName()).log(Level.SEVERE, null,ex);}
+         Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE, null,ex);}
      }
     
     
   //zweite OnMessage Methode wird definiert um BinaryMessages zu empfangen. Diese wird benötigt, um Dateien zu empfangen und zu versenden
-   @OnMessage
+ /* @OnMessage
    
-   public void OnMesssage (Binary binary){
+  public void OnMesssage (Binary binary){
    
-   }
+   }*/
     
     }
     

@@ -5,6 +5,7 @@
  */
 package com.flopewsserver.converter;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flopewsserver.entities.Sperrbildschirmjob;
 import com.flopewsserver.entities.User;
@@ -22,6 +23,8 @@ public class JSONStringtoPOJO {
     
     public Sperrbildschirmjob convertJSONStringtoPOJOSperrbildschirmjob(String JSON) {
         
+     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+     
      Sperrbildschirmjob job = null;
         try {
             job = mapper.readValue(JSON,Sperrbildschirmjob.class);
@@ -36,7 +39,7 @@ public class JSONStringtoPOJO {
     public User convertJSONStringtoPOJOUSER(String JSON){
         
         User user = null;
-        
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
             user = mapper.readValue(JSON,User.class);
         }

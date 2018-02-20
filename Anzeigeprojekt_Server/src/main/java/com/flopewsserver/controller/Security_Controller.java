@@ -5,6 +5,8 @@
  */
 package com.flopewsserver.controller;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -16,13 +18,18 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 
+
 /**
  *
  * @author Florian
  */
 public class Security_Controller {
-   
+    
+    public static final Logger log = Logger.getLogger(Security_Controller.class.getName());
+       
 public Boolean logincheck(){
+    
+      Boolean logincheck = false;
 
      // The easiest way to create a Shiro SecurityManager with configured
         // realms, users, roles and permissions is to use the simple INI config.
@@ -56,21 +63,20 @@ public Boolean logincheck(){
     //im folgenden müssen die Daten des aktuellen Subjects z.B. aus einer Eingabemaske gesammelt werden und mit dem Subjekt in der Datenbank verglichen werden....        
                UsernamePasswordToken token = new UsernamePasswordToken("lonestarr", "vespa");
             token.setRememberMe(true);
-            try {
-                currentUser.login(token);
-            } catch (UnknownAccountException uae) {
-                log.info("There is no user with username of " + token.getPrincipal());
-            } catch (IncorrectCredentialsException ice) {
-                log.info("Password for account " + token.getPrincipal() + " was incorrect!");
-            } catch (LockedAccountException lae) {
-                log.info("The account for username " + token.getPrincipal() + " is locked.  " +
-                        "Please contact your administrator to unlock it.");
-            }
+            try {currentUser.login(token);} 
+            
+            catch (UnknownAccountException uae) {log.log(Level.INFO, "There is no user with username of {0}", token.getPrincipal());}
+            
+            catch (IncorrectCredentialsException ice) {log.log(Level.INFO, "Password for account {0} was incorrect!", token.getPrincipal());} 
+            
+            catch (LockedAccountException lae) {log.log(Level.INFO, "The account for username {0} is locked.  Please contact your administrator to unlock it.", token.getPrincipal());}
             // ... catch more exceptions here (maybe custom ones specific to your application?
-            catch (AuthenticationException ae) {
-                //unexpected condition?  error?
+            catch (AuthenticationException ae) {//unexpected condition?  error?
             }
         }
+        
+        
+       return logincheck;
     
     
     
