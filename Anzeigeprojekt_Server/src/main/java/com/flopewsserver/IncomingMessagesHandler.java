@@ -13,6 +13,8 @@ import com.flopewsserver.entities.User;
  */
 public class IncomingMessagesHandler {
     
+    public IncomingMessagesHandler(){};
+    
     public String test(Object o){
        
         String variante = null;

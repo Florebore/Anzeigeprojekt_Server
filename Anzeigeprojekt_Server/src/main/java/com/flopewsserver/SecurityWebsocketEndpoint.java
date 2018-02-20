@@ -40,11 +40,13 @@ public class SecurityWebsocketEndpoint {
     
     public void OnMessage(String message){
      
+    message = message.substring(6);
     
     JSONStringtoPOJO conv = new JSONStringtoPOJO();
     User loginuser;
     loginuser = conv.convertJSONStringtoPOJOUSER(message);
-    IncomingMessagesHandler dis = new IncomingMessagesHandler();
+    IncomingMessagesHandler dis;
+    dis = new IncomingMessagesHandler();
     dis.test(loginuser);
         
     System.out.println(dis.test(loginuser));
