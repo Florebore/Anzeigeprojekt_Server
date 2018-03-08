@@ -41,7 +41,7 @@ public class CRUD {
    @Test
    public void CRUD(){
    
-   EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
+   EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
    EntityManager em = emf.createEntityManager();
   /* User a = em.find(User.class, 1);
    String pw  = a.getIdent();
@@ -55,7 +55,7 @@ public class CRUD {
     
 
 List<User> samples;
-samples = em.createNamedQuery("find_person_username_and_ident_dto" ).getResultList();
+samples = em.createNamedQuery("find_person_username_and_ident_dto").getResultList();
 System.out.println(samples);
 User user = new User();
 user = samples.get(0);

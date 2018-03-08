@@ -23,9 +23,9 @@ import org.apache.shiro.util.Factory;
  *
  * @author Florian
  */
-public class Security_Controller {
+public class Security_Controller_shiro {
     
-    public static final Logger log = Logger.getLogger(Security_Controller.class.getName());
+    public static final Logger log = Logger.getLogger(Security_Controller_shiro.class.getName());
        
 public Boolean logincheck(){
     

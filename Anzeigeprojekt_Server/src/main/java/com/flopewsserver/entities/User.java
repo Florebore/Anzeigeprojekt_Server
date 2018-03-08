@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @NamedNativeQuery(
-    name = "find_person_username_and_ident_dto",
+    name ="find_person_username_and_ident_dto",
     query =
         "SELECT " +
         "   id,"     +

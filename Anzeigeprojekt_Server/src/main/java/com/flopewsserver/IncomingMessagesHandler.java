@@ -21,8 +21,9 @@ public class IncomingMessagesHandler {
         
         
         if(o instanceof User){System.out.println("Das Object ist ein User");
-        variante = "Das Objekt ist ein User" ; 
-        return variante;}
+        variante = "User"; 
+        return variante;
+        }
         
         
     return variante;}
