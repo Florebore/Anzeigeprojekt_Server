@@ -55,7 +55,7 @@ public class CRUD {
     
 
 List<User> samples;
-samples = em.createNamedQuery("find_person_username_and_ident_dto").getResultList();
+samples = em.createNamedQuery("find_p_u_p").getResultList();
 System.out.println(samples);
 User user = new User();
 user = samples.get(0);

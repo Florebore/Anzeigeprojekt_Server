@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @NamedNativeQuery(
-    name ="find_person_username_and_ident_dto",
+    name ="find_p_u_p",
     query =
         "SELECT " +
         "   id,"     +
@@ -64,24 +64,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer userID;
     @Size(max = 45)
     @Column(name = "Firstname")
     private String firstname;
     @Size(max = 45)
     @Column(name = "Lastname")
     private String lastname;
-    @Size(max = 45)
+    @Size(max = 128)
     @Column(name = "password")
     private String password;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 128)
+    @Column(name = "email")
+    private String email;
     @Size(max = 45)
     @Column(name = "Username")
     private String username;
+    @Size(max = 128)
+    @Column(name = "salt")
+    private String salt;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer userID;
     
 
 
@@ -107,21 +115,6 @@ public class User implements Serializable {
         this.userID = userID;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
     public String getIdent() {
         return password;
@@ -131,13 +124,6 @@ public class User implements Serializable {
         this.password = ident;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     @Override
     public int hashCode() {
@@ -162,6 +148,54 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.flopewsserver.entities.User[ userID=" + userID + " username = "+ username+" ident= "+ password+" Firstname=" + firstname + " Lastname = "+ lastname+"  ]";
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
     
 }

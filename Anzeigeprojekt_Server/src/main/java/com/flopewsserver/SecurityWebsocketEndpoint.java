@@ -5,17 +5,14 @@
  */
 package com.flopewsserver;
 
-import com.flopewsserver.controller.Database_Controller;
 import com.flopewsserver.converter.JSONStringtoPOJO;
 import com.flopewsserver.entities.User;
 import java.util.logging.Logger;
 import java.io.IOException;
-import static java.lang.System.out;
 import java.util.HashMap;
 import java.util.logging.Level;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -25,7 +22,7 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Florian
  */
-@ServerEndpoint("/security")
+@ServerEndpoint("/login")
 public class SecurityWebsocketEndpoint {
     
    
@@ -33,6 +30,9 @@ public class SecurityWebsocketEndpoint {
     private static final Logger log = Logger.getLogger(SecurityWebsocketEndpoint.class.getName());
     private final static HashMap<String, SecurityWebsocketEndpoint> sockets = new HashMap<>();
     private String myUniqueId;
+    
+    //@Inject
+    //UserPersistenceBean userservice;
 
     //the #uniqueID is created to create a unique identifier for the client that requested a connection, the ID is then sent back to the client and is stored in a HashMap together
     //with the SecurityWebsocketEndpoint-Objekt to identify established connections
@@ -55,15 +55,13 @@ public class SecurityWebsocketEndpoint {
     public void onConnect(Session session) {
         // save session so we can send
         this.session = session;
-
         // this unique ID and send ID to client
         this.myUniqueId = this.getMyUniqueId();
         System.out.println(myUniqueId +"IDUnique");
         this.sendClient(myUniqueId);
-
         // map this unique ID to this connection
-        SecurityWebsocketEndpoint.sockets.put(this.myUniqueId, this);}
-   
+        SecurityWebsocketEndpoint.sockets.put(this.myUniqueId, this); }
+    
     
     @OnMessage
     public void OnMessage(Session from,String message){
@@ -72,16 +70,16 @@ public class SecurityWebsocketEndpoint {
     
     JSONStringtoPOJO conv = new JSONStringtoPOJO();
     User loginuser;
+    //try {EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+    //System.out.println("hier");
+    //EntityManager em = emf.createEntityManager();}
+    //catch (Exception e){Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE,null,e);}
+    
     loginuser = conv.convertJSONStringtoPOJOUSER(message);
     IncomingMessagesHandler dis;
     dis = new IncomingMessagesHandler();
     dis.test(loginuser);
-    System.out.println(dis.test(loginuser));
-    
-    String loginserver = login(loginuser);
-    System.out.println(loginserver);
-    
-     try {   this.session.getBasicRemote().sendText(loginserver);}
+    try {   this.session.getBasicRemote().sendText(loginuser.toString());}
      catch (IOException ex) {
          Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE, null,ex);}
      }
@@ -90,13 +88,10 @@ public class SecurityWebsocketEndpoint {
 private String login(User loginuser) throws IllegalStateException {
 
 String loginsuccess = "false";
-User databaseuser = null;
- Database_Controller dc = new Database_Controller(); 
- 
-try {EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-     EntityManager em = emf.createEntityManager();
-                                                                              }
-catch (Exception e){e.printStackTrace(out); System.out.println(e.toString()+"stack");return loginsuccess;}
+System.out.println(loginsuccess);
+
+   
+                                                                              
 
 return loginsuccess;
     }
@@ -143,6 +138,14 @@ dis.test(user);*/
 //{loginsuccess = "true";}
 
 //else {loginsuccess = "false";}
+
+    @OnError
+    public void onError(Throwable t) {
+    }
+
+    @OnClose
+    public void onClose() {
+    }
 }
     
     

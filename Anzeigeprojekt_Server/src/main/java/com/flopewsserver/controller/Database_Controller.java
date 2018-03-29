@@ -10,9 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 
 /**
  *
@@ -25,16 +23,7 @@ public class Database_Controller {
         
         
     }
-    
- //Methode kreiert einen EntityManager und gibt ihn zurück an eine beleiebige Klasse
-    
-  public EntityManager createEntityManager(String persistenceunit){
-            
-      EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistenceunit);
-      EntityManager em = emf.createEntityManager();
-      return em;
-  
-  }
+
     
     
 //methods have been written static so far, because they can be accessed without the instance of an object     
