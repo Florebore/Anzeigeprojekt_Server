@@ -8,7 +8,7 @@ package com.flopewsserver.converter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flopewsserver.entities.Sperrbildschirmjob;
-import com.flopewsserver.entities.User;
+import com.flopewsserver.entities.Userdata;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,12 +36,12 @@ public class JSONStringtoPOJO {
     
     }
     
-    public User convertJSONStringtoPOJOUSER(String JSON){
+    public Userdata convertJSONStringtoPOJOUSER(String JSON){
         
-        User user = null;
+        Userdata user = null;
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
-            user = mapper.readValue(JSON,User.class);
+            user = mapper.readValue(JSON,Userdata.class);
         }
         catch (IOException ex) {
             Logger.getLogger(JSONStringtoPOJO.class.getName()).log(Level.SEVERE, null, ex);

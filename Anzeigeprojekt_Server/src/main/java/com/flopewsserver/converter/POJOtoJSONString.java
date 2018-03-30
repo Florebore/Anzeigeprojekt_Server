@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.flopewsserver.entities.Job;
-import com.flopewsserver.entities.User;
+import com.flopewsserver.entities.Userdata;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +39,7 @@ public class POJOtoJSONString {
     return JSONJOBString;
     }
     
-    public String covertUSERtoJSON (User user){
+    public String covertUSERtoJSON (Userdata user){
         
         String JSONUSERString = null;
     try{

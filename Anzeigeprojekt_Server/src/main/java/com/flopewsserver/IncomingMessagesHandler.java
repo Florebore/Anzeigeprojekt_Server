@@ -5,7 +5,7 @@
  */
 package com.flopewsserver;
 
-import com.flopewsserver.entities.User;
+import com.flopewsserver.entities.Userdata;
 
 /**
  *
@@ -20,7 +20,7 @@ public class IncomingMessagesHandler {
         String variante = null;
         
         
-        if(o instanceof User){System.out.println("Das Object ist ein User");
+        if(o instanceof Userdata){System.out.println("Das Object ist ein User");
         variante = "User"; 
         return variante;
         }

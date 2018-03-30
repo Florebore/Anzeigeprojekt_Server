@@ -5,7 +5,7 @@
  */
 
 import com.flopewsserver.IncomingMessagesHandler;
-import com.flopewsserver.entities.User;
+import com.flopewsserver.entities.Userdata;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -54,17 +54,16 @@ public class CRUD {
    System.out.println(l1);*/
     
 
-List<User> samples;
-samples = em.createNamedQuery("find_p_u_p").getResultList();
+List<Userdata> samples;
+samples = em.createNamedQuery("Userdata.").getResultList();
 System.out.println(samples);
-User user = new User();
+Userdata user = new Userdata();
 user = samples.get(0);
 String username = user.getUsername();
-Integer id = user.getUserID();
+Integer id = user.getId();
 System.out.println(id);
 System.out.println(username);
-IncomingMessagesHandler dis = new IncomingMessagesHandler();
-dis.test(user);
+
 
 
 

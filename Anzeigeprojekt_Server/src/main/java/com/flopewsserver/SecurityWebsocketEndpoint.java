@@ -6,11 +6,17 @@
 package com.flopewsserver;
 
 import com.flopewsserver.converter.JSONStringtoPOJO;
-import com.flopewsserver.entities.User;
+import com.flopewsserver.entities.Userdata;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -32,7 +38,7 @@ public class SecurityWebsocketEndpoint {
     private String myUniqueId;
     
     //@Inject
-    //UserPersistenceBean userservice;
+   
 
     //the #uniqueID is created to create a unique identifier for the client that requested a connection, the ID is then sent back to the client and is stored in a HashMap together
     //with the SecurityWebsocketEndpoint-Objekt to identify established connections
@@ -69,23 +75,28 @@ public class SecurityWebsocketEndpoint {
     message = message.substring(6);
     
     JSONStringtoPOJO conv = new JSONStringtoPOJO();
-    User loginuser;
-    //try {EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-    //System.out.println("hier");
-    //EntityManager em = emf.createEntityManager();}
-    //catch (Exception e){Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE,null,e);}
+    Userdata loginuser = conv.convertJSONStringtoPOJOUSER(message);
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+    System.out.println("hier");
+    EntityManager em = emf.createEntityManager();
+    System.out.println(loginuser.getUsername());
+    try {Query q1 = em.createNamedQuery("Userdatalogin");
+    q1.setParameter(loginuser.getUsername(), Userdata.class);
+    List l1 = q1.getResultList();
+    System.out.println(l1);}
+    catch (IllegalArgumentException e){}
     
-    loginuser = conv.convertJSONStringtoPOJOUSER(message);
-    IncomingMessagesHandler dis;
-    dis = new IncomingMessagesHandler();
-    dis.test(loginuser);
-    try {   this.session.getBasicRemote().sendText(loginuser.toString());}
+    
+    
+    
+    
+    try {   this.session.getBasicRemote().sendText("zurück");}
      catch (IOException ex) {
          Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE, null,ex);}
      }
    
     
-private String login(User loginuser) throws IllegalStateException {
+private String login(Userdata loginuser) throws IllegalStateException {
 
 String loginsuccess = "false";
 System.out.println(loginsuccess);
