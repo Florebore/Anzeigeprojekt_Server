@@ -6,6 +6,7 @@
 
 import com.flopewsserver.IncomingMessagesHandler;
 import com.flopewsserver.entities.Userdata;
+import static com.flopewsserver.entities.Userdata_.username;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -54,18 +55,17 @@ public class CRUD {
    System.out.println(l1);*/
     
 
-List<Userdata> samples;
-samples = em.createNamedQuery("Userdata.").getResultList();
-System.out.println(samples);
-Userdata user = new Userdata();
-user = samples.get(0);
-String username = user.getUsername();
-Integer id = user.getId();
-System.out.println(id);
-System.out.println(username);
-
-
-
+ Query q1 = em.createNamedQuery("Userdatalogin").setParameter("username", "f.boettinger");
+ List l1 = q1.getResultList();
+ System.out.println(l1);
+Object o = q1.getSingleResult();
+ System.out.println(o);
+ //coverts Object ot target class
+ Userdata dbuser = Userdata.class.cast(o);
+ System.out.println(dbuser.getPassword());
+ }
+    
+ 
 
    
    
@@ -76,4 +76,4 @@ System.out.println(username);
     //
     // @Test
     // public void hello() {}
-}
+

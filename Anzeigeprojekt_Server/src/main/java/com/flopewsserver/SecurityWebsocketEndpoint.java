@@ -80,11 +80,15 @@ public class SecurityWebsocketEndpoint {
     System.out.println("hier");
     EntityManager em = emf.createEntityManager();
     System.out.println(loginuser.getUsername());
-    try {Query q1 = em.createNamedQuery("Userdatalogin");
-    q1.setParameter(loginuser.getUsername(), Userdata.class);
-    List l1 = q1.getResultList();
-    System.out.println(l1);}
-    catch (IllegalArgumentException e){}
+    Query q1 = em.createNamedQuery("Userdatalogin").setParameter("username", loginuser.getUsername());
+    Object o = q1.getSingleResult();
+    System.out.println(o);
+    //coverts Object ot target class
+    Userdata dbuser = Userdata.class.cast(o);
+    System.out.println(dbuser);
+    
+    
+    
     
     
     

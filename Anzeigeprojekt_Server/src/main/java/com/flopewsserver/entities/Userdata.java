@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Florian
  */
 @Entity
-@Table(name = "userdata", catalog = "database_anzeige", schema = "")
+@Table(name = "userdata")
+//Optionen aus Table Klammer entfernt, catalog = "database_anzeige", schema = ""
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Userdata.findAll", query = "SELECT u FROM Userdata u")
@@ -52,7 +53,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @NamedNativeQueries({
-    @NamedNativeQuery(name = "Userdatalogin", query = "SELECT u.id, u.username, u.password FROM Userdata u WHERE u.username = :username", resultSetMapping = "UserResult")
+    @NamedNativeQuery(name = "Userdatalogin", query = "SELECT log.id, log.username, log.password FROM userdata log WHERE log.username = :username", resultSetMapping = "UserResult")
 })
 
 
@@ -70,10 +71,10 @@ public class Userdata implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
-    @Column(name = "Firstname")
+    @Column(name = "firstname")
     private String firstname;
     @Size(max = 45)
-    @Column(name = "Lastname")
+    @Column(name = "lastname")
     private String lastname;
     @Size(max = 128)
     @Column(name = "password")
@@ -83,7 +84,7 @@ public class Userdata implements Serializable {
     @Column(name = "email")
     private String email;
     @Size(max = 45)
-    @Column(name = "Username")
+    @Column(name = "username")
     private String username;
     @Size(max = 128)
     @Column(name = "salt")
@@ -91,7 +92,17 @@ public class Userdata implements Serializable {
 
     public Userdata() {
     }
-
+    
+    //for a NamedNativeQuery a constructor with the exact same attributes is necessary for hibernate to create the Object from the database
+    public Userdata(Integer id, String username, String password){
+        
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    }
+    
+    
+    
     public Userdata(Integer id) {
         this.id = id;
     }
