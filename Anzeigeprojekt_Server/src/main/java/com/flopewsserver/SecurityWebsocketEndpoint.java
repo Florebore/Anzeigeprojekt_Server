@@ -121,7 +121,7 @@ public class SecurityWebsocketEndpoint {
     
      
     
-    try {   from.getBasicRemote().sendText("zurück");}
+    try {   from.getBasicRemote().sendText("zurueck");}
      catch (IOException ex) {
          Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE, null,ex);}
      }

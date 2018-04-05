@@ -60,7 +60,7 @@ public Boolean logincheck(){
      
         // let's login the current user so we can check against roles and permissions:
         if (!currentUser.isAuthenticated()) {
-    //im folgenden müssen die Daten des aktuellen Subjects z.B. aus einer Eingabemaske gesammelt werden und mit dem Subjekt in der Datenbank verglichen werden....        
+    //im folgenden muessen die Daten des aktuellen Subjects z.B. aus einer Eingabemaske gesammelt werden und mit dem Subjekt in der Datenbank verglichen werden....        
                UsernamePasswordToken token = new UsernamePasswordToken("lonestarr", "vespa");
             token.setRememberMe(true);
             try {currentUser.login(token);} 

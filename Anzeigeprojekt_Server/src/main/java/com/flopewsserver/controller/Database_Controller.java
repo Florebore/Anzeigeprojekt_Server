@@ -101,7 +101,7 @@ public String getusernamefromdatabase(String User) throws SQLException{
     try {
                 
                 usernamerueckgabe = (SQLergebnis.getString(1));
-              System.out.println(usernamerueckgabe +"usernamerück");
+              System.out.println(usernamerueckgabe +"usernamerueck");
                 
             }
        
