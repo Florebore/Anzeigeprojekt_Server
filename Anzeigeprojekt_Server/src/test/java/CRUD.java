@@ -5,9 +5,12 @@
  */
 
 import com.flopewsserver.IncomingMessagesHandler;
+import com.flopewsserver.SecurityWebsocketEndpoint;
+import com.flopewsserver.beans.UserDataServiceBean;
 import com.flopewsserver.entities.Userdata;
 import static com.flopewsserver.entities.Userdata_.username;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,6 +26,10 @@ import static org.junit.Assert.*;
  * @author Florian
  */
 public class CRUD {
+    
+    @Inject
+    UserDataServiceBean udsb;
+    
     
     public CRUD() {
     }
@@ -42,8 +49,9 @@ public class CRUD {
    @Test
    public void CRUD(){
    
-   EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-   EntityManager em = emf.createEntityManager();
+ 
+   CRUD c = new CRUD();
+   
   /* User a = em.find(User.class, 1);
    String pw  = a.getIdent();
    Query q =  em.createNamedQuery("User.findAll");
@@ -55,17 +63,24 @@ public class CRUD {
    System.out.println(l1);*/
     
 
- Query q1 = em.createNamedQuery("Userdatalogin").setParameter("username", "f.boettinger");
+ /*Query q1 = em.createNamedQuery("Userdatalogin").setParameter("username", "f.boettinger");
  List l1 = q1.getResultList();
  System.out.println(l1);
 Object o = q1.getSingleResult();
  System.out.println(o);
  //coverts Object ot target class
  Userdata dbuser = Userdata.class.cast(o);
- System.out.println(dbuser.getPassword());
+ System.out.println(dbuser.getPassword());*/
+ System.out.println(c);
+ System.out.println(udsb);
+ 
+ c.udsb.findUser();
+ 
+ 
+ 
  }
     
- 
+
 
    
    
@@ -77,3 +92,4 @@ Object o = q1.getSingleResult();
     // @Test
     // public void hello() {}
 
+;

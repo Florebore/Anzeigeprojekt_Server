@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 //Optionen aus Table Klammer entfernt, catalog = "database_anzeige", schema = ""
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Userdata.findAll", query = "SELECT u FROM Userdata u")
+        @NamedQuery(name = "Userdata.findAll", query = "SELECT u FROM Userdata u")
     , @NamedQuery(name = "Userdata.findById", query = "SELECT u FROM Userdata u WHERE u.id = :id")
     , @NamedQuery(name = "Userdata.findByFirstname", query = "SELECT u FROM Userdata u WHERE u.firstname = :firstname")
     , @NamedQuery(name = "Userdata.findByLastname", query = "SELECT u FROM Userdata u WHERE u.lastname = :lastname")
