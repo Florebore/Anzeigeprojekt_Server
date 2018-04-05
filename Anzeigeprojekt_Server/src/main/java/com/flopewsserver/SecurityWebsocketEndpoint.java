@@ -94,7 +94,7 @@ public class SecurityWebsocketEndpoint {
     
     
     @OnMessage
-    public void OnMessage(Session from,String message, final Session client){
+    public void OnMessage(String message, final Session client){
         
     message = message.substring(6);
     
@@ -117,11 +117,9 @@ public class SecurityWebsocketEndpoint {
     
     
     
+        
     
-    
-     
-    
-    try {   from.getBasicRemote().sendText("zurueck");}
+    try {   client.getBasicRemote().sendText("zurueck");}
      catch (IOException ex) {
          Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE, null,ex);}
      }
@@ -138,7 +136,7 @@ System.out.println(loginsuccess);
 return loginsuccess;
     }
 
-  private Object getBeanByName(String name) throws NamingException // eg. name=availableCountryDao
+ private Object getBeanByName(String name) throws NamingException // eg. name=availableCountryDao
     {
         BeanManager bm = getBeanManager();
         Bean bean = bm.getBeans(name).iterator().next();
@@ -157,7 +155,6 @@ return loginsuccess;
             return null;
         }
     }
-
 
 
 
