@@ -71,6 +71,11 @@ Object o = q1.getSingleResult();
  //coverts Object ot target class
  Userdata dbuser = Userdata.class.cast(o);
  System.out.println(dbuser.getPassword());*/
+ EntityManagerFactory factory = Persistence.createEntityManagerFactory("PU");
+ EntityManager em = factory.createEntityManager();
+ 
+ 
+ 
  System.out.println(c);
  System.out.println(udsb);
  

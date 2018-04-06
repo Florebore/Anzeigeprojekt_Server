@@ -54,7 +54,7 @@ public class SecurityWebsocketEndpoint {
     private String myUniqueId;
     
     @Inject
-    UserDataServiceBean udsb;
+    private UserDataServiceBean udsb;
     
     public SecurityWebsocketEndpoint(){}
     
@@ -81,9 +81,16 @@ public class SecurityWebsocketEndpoint {
     @OnOpen
     public void onConnect(Session session) throws IOException {
         // save session so we can send
-       session.getBasicRemote().sendText("session opened");
+      try{ session.getBasicRemote().sendText("session opened");
         //saves the sessioen in the websocketSession
        webSocketSessions.add(session);
+        if (udsb == null) {
+                Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.INFO, "udsb is null");
+            }}
+      
+       catch (IOException ex) {
+            Logger.getLogger(SecurityWebsocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);}
+      
         System.out.println(udsb);
         // this unique ID and send ID to client
         this.myUniqueId = this.getMyUniqueId();
@@ -102,7 +109,7 @@ public class SecurityWebsocketEndpoint {
     Userdata loginuser = conv.convertJSONStringtoPOJOUSER(message);
     System.out.println("vortryInject");
     try{
-    udsb = new UserDataServiceBean();
+    udsb.findUser();
     System.out.println("nach new()");
     Userdata userdb = udsb.findbyusername(loginuser);
     System.out.println("nach Methodenaufruf");
@@ -135,61 +142,15 @@ System.out.println(loginsuccess);
 
 return loginsuccess;
     }
-
- private Object getBeanByName(String name) throws NamingException // eg. name=availableCountryDao
-    {
-        BeanManager bm = getBeanManager();
-        Bean bean = bm.getBeans(name).iterator().next();
-        CreationalContext ctx = bm.createCreationalContext(bean); // could be inlined below
-        Object o = bm.getReference(bean, bean.getClass(), ctx); // could be inlined with return
-        return o;
-    }
-
- public BeanManager getBeanManager() throws NamingException
-    {
-        try{
-            InitialContext initialContext = new InitialContext();
-            return (BeanManager) initialContext.lookup("java:comp/BeanManager");}
-        catch (NamingException e) {
-            System.out.println("Couldn't get BeanManager through JNDI");
-            return null;
-        }
-    }
-
-
-
-
-/*@OnMessage
-public void broadcast(Session from, String msg){
-  String senderID = (String) this.epCfg.getUserProperties().get(from.getID()); //check the mapping
-  for(Session peer : peers) { //loop over ALL connected clients
-    if(peer.isOpen()){
-      peer.getBasicRemote().sendText("Message from User "+ senderID + " - " + msg);
-    }
-  }
-}
+//getBeanByName + get BeanManager + getFacade sind Methoden, um ein Bean zu finden, welches in einem WebSocket ein Bean findet, da Beans in Websocket oft nich
+//den selben Container gemanaged werden und deswegen null sind
     
-    
-  //zweite OnMessage Methode wird definiert um BinaryMessages zu empfangen. Diese wird ben�tigt, um Dateien zu empfangen und zu versenden
+//zweite OnMessage Methode wird definiert um BinaryMessages zu empfangen. Diese wird ben�tigt, um Dateien zu empfangen und zu versenden
  /* @OnMessage
    
   public void OnMesssage (Binary binary){
    
    }*/
-    
-//EntityManager em = factory.createEntityManager();
-//List<User> samples;
-//samples = em.createNamedQuery("find_person_username_and_ident_dto" ).getResultList();
-//System.out.println(loginuser);
-//databaseuser = new User();
-//databaseuser = samples.get(0);
-
-
-
-
-
-/*IncomingMessagesHandler dis = new IncomingMessagesHandler();
-dis.test(user);*/
 //if (databaseuser.getUsername() == loginuser.getUsername() && databaseuser.getIdent()==loginuser.getIdent())
     
 //{loginsuccess = "true";}

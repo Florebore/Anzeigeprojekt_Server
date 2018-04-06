@@ -17,9 +17,9 @@ import javax.persistence.Query;
  *
  * @author Florian
  */
-
-
+//https://docs.oracle.com/javaee/6/tutorial/doc/gjbak.html
 @Named
+//https://docs.oracle.com/javaee/6/tutorial/doc/gjbbk.html 
 @ApplicationScoped
 public class UserDataServiceBean implements UserDataService {
     
