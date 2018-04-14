@@ -109,7 +109,6 @@ public class SecurityWebsocketEndpoint {
     Userdata loginuser = conv.convertJSONStringtoPOJOUSER(message);
     System.out.println("vortryInject");
     try{
-    udsb.findUser();
     System.out.println("nach new()");
     Userdata userdb = udsb.findbyusername(loginuser);
     System.out.println("nach Methodenaufruf");

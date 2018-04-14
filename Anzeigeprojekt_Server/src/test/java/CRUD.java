@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
 public class CRUD {
     
     @Inject
-    UserDataServiceBean udsb;
+    private UserDataServiceBean udsb;
     
     
     public CRUD() {
@@ -61,25 +61,25 @@ public class CRUD {
    q1.setParameter("username","f.boettinger");
    List l1 =  q1.getResultList();
    System.out.println(l1);*/
-    
-
- /*Query q1 = em.createNamedQuery("Userdatalogin").setParameter("username", "f.boettinger");
+ 
+/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+EntityManager em = emf.createEntityManager();
+ Query q1 = em.createNamedQuery("Userdatalogin").setParameter("username", "test");
  List l1 = q1.getResultList();
  System.out.println(l1);
-Object o = q1.getSingleResult();
+Object o = q1.getResultList().get(0);
  System.out.println(o);
  //coverts Object ot target class
  Userdata dbuser = Userdata.class.cast(o);
- System.out.println(dbuser.getPassword());*/
- EntityManagerFactory factory = Persistence.createEntityManagerFactory("PU");
- EntityManager em = factory.createEntityManager();
- 
- 
- 
- System.out.println(c);
+ System.out.println(dbuser.getPassword());
+  
+ /*System.out.println(c);
  System.out.println(udsb);
  
- c.udsb.findUser();
+udsb = new UserDataServiceBean();
+ 
+ udsb.findUser();*/
+
  
  
  

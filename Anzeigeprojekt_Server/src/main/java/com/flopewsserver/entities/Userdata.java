@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Florian
  */
 @Entity
-@Table(name = "userdata")
+@Table(name = "userdata", catalog = "database_anzeige", schema = "database_anzeige")
 //Optionen aus Table Klammer entfernt, catalog = "database_anzeige", schema = ""
 @XmlRootElement
 @NamedQueries({

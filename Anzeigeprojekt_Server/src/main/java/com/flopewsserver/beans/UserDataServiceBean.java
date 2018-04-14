@@ -23,7 +23,7 @@ import javax.persistence.Query;
 @ApplicationScoped
 public class UserDataServiceBean implements UserDataService {
     
-    @PersistenceContext
+    @PersistenceContext(unitName="PU")
     EntityManager em;
 
     public UserDataServiceBean(){}
@@ -38,8 +38,9 @@ public class UserDataServiceBean implements UserDataService {
     Object o = q1.getSingleResult();
     System.out.println(o);
     //coverts Object ot target class
-    Userdata dbuser = Userdata.class.cast(o);
-    System.out.println(dbuser);
+    userdb = Userdata.class.cast(o);
+    System.out.println(userdb);
+    
         
         
         return userdb; 
